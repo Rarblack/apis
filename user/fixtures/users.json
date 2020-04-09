@@ -1,0 +1,13 @@
+[
+  {
+    "model": "users.CustomUser",
+    "pk": 1,
+    "fields": {
+      "email": "admin@socar-aqs.com",
+      "password": "admin123",
+      "department": "ict",
+      "name": "Admin",
+      "surname": "Admin"
+    }
+  }
+]
