@@ -8,10 +8,10 @@ from fcm_django.api.rest_framework import FCMDeviceAuthorizedViewSet
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('fcm/create/device/', FCMDeviceAuthorizedViewSet.as_view({'post': 'create'}), name='create-device'),
+    path('fcm/create/device', FCMDeviceAuthorizedViewSet.as_view({'post': 'create'}), name='create-device'),
     path('users/', include('user.urls')),
-    path('announcements/', include('announcement.urls')),
-    path('notifications/', include('notification.urls'))
+    path('', include('announcement.urls')),
+    path('', include('notification.urls'))
 ]
 
 if settings.DEBUG:

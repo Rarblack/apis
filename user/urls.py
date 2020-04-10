@@ -3,7 +3,7 @@ from .views import CustomObtainAuthToken
 
 urlpatterns = [
     path(
-        'token-auth/',
+        'token-auth',
         CustomObtainAuthToken.as_view()
     ),
 ]

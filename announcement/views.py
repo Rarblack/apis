@@ -8,8 +8,8 @@ from user.models import CustomUser
 
 class BroadcastAnnouncementsListAPIView(generics.ListAPIView):
     serializer_class = AnnouncementSerializer
-    # authentication_classes = (authentication.TokenAuthentication, )
-    # permission_classes = (permissions.IsAuthenticated,)
+    authentication_classes = (authentication.TokenAuthentication, )
+    permission_classes = (permissions.IsAuthenticated,)
 
     def get_queryset(self):
         return Announcement.objects.filter(type=0)
@@ -17,18 +17,18 @@ class BroadcastAnnouncementsListAPIView(generics.ListAPIView):
 
 class UserAnnouncementsListAPIView(generics.ListAPIView):
     serializer_class = AnnouncementSerializer
-    # authentication_classes = (authentication.TokenAuthentication, )
-    # permission_classes = (permissions.IsAuthenticated,)
+    authentication_classes = (authentication.TokenAuthentication, )
+    permission_classes = (permissions.IsAuthenticated,)
 
     def get_queryset(self):
-        return Announcement.objects.filter(type=1, receivers__in=[self.kwargs['pk']])
+        return Announcement.objects.filter(type=1, receivers__pk=[self.kwargs['pk']])
 
 
 class AnnouncementCreateAPIView(generics.CreateAPIView):
     queryset = Announcement.objects.all()
     serializer_class = AnnouncementSerializer
-    # authentication_classes = (authentication.TokenAuthentication, )
-    # permission_classes = (permissions.IsAuthenticated,)
+    authentication_classes = (authentication.TokenAuthentication, )
+    permission_classes = (permissions.IsAuthenticated,)
 
     def post(self, request, *args, **kwargs):
         data = {

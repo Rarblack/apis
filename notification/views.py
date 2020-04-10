@@ -7,8 +7,8 @@ from user.models import CustomUser
 
 class NotificationsListAPIView(generics.ListAPIView):
     serializer_class = NotificationSerializer
-    # authentication_classes = (authentication.TokenAuthentication, )
-    # permission_classes = (permissions.IsAuthenticated,)
+    authentication_classes = (authentication.TokenAuthentication, )
+    permission_classes = (permissions.IsAuthenticated,)
 
     def get_queryset(self):
-        return Notification.objects.filter(receivers__in=[self.kwargs['pk']])
+        return Notification.objects.filter(receivers__pk=[self.kwargs['pk']])
