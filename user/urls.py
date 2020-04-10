@@ -1,9 +1,7 @@
 from django.urls import path
-from .views import CustomObtainAuthToken
+from .views import CustomObtainAuthToken, UsersListAPIView
 
 urlpatterns = [
-    path(
-        'token-auth',
-        CustomObtainAuthToken.as_view()
-    ),
+    path('users/token-auth', CustomObtainAuthToken.as_view()),
+    path('users', UsersListAPIView.as_view()),
 ]

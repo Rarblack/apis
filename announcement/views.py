@@ -21,7 +21,7 @@ class UserAnnouncementsListAPIView(generics.ListAPIView):
     permission_classes = (permissions.IsAuthenticated,)
 
     def get_queryset(self):
-        return Announcement.objects.filter(type=1, receivers__pk=[self.kwargs['pk']])
+        return Announcement.objects.filter(type=1, receivers__pk=self.kwargs['pk'])
 
 
 class AnnouncementCreateAPIView(generics.CreateAPIView):

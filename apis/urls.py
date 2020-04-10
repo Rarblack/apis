@@ -9,7 +9,7 @@ from fcm_django.api.rest_framework import FCMDeviceAuthorizedViewSet
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('fcm/create/device', FCMDeviceAuthorizedViewSet.as_view({'post': 'create'}), name='create-device'),
-    path('users/', include('user.urls')),
+    path('', include('user.urls')),
     path('', include('announcement.urls')),
     path('', include('notification.urls'))
 ]
