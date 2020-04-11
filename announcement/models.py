@@ -5,17 +5,16 @@ from user.models import CustomUser
 
 class Announcement(models.Model):
 
-    type = models.IntegerField(choices=[
-        (0, 'Broadcast'),
-        (1, 'Single')
-    ])
-
-    receivers = models.ManyToManyField(CustomUser)
+    receivers = models.ManyToManyField(
+        CustomUser,
+        blank=True,
+        help_text='Hold down “Shift”, to select all or more than one serial instances quickly.'
+    )
 
     title = models.CharField(max_length=150)
-    
+
     message = models.TextField()
-    
+
     updated_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.SET_NULL,

@@ -2,7 +2,6 @@ from rest_framework import generics
 from rest_framework import authentication, permissions
 from .serializers import NotificationSerializer
 from .models import Notification
-from user.models import CustomUser
 
 
 class NotificationsListAPIView(generics.ListAPIView):

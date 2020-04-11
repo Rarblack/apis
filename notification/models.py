@@ -7,30 +7,9 @@ from user.models import CustomUser
 
 class Notification(models.Model):
 
-    type = models.IntegerField(choices=[
-        (0, 'Broadcast'),
-        (1, 'Single')
-    ])
-
     receivers = models.ManyToManyField(CustomUser)
 
     data = JSONField(null=True)
-
-    updated_by = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-        related_name='updatedNotifications',
-        related_query_name='updatedNotification',
-        editable=False
-    )
-
-    updated_datetime = models.DateTimeField(
-        null=True,
-        blank=True,
-        editable=False
-    )
 
     read_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,

@@ -3,7 +3,6 @@ from rest_framework import authentication, permissions
 from .serializers import AnnouncementSerializer
 from .models import Announcement
 from .shortcuts import send_notification, record_notification
-from user.models import CustomUser
 
 
 class BroadcastAnnouncementsListAPIView(generics.ListAPIView):
@@ -32,11 +31,11 @@ class AnnouncementCreateAPIView(generics.CreateAPIView):
 
     def post(self, request, *args, **kwargs):
         data = {
-            'title': 'this is announcement title',
-            'message': 'this is announcement message',
+            'title': kwargs['title'],
+            'message': kwargs['message'],
             'user': {
-                'id': 1,
-                'name': 'admin admin'
+                'id': kwargs['user_id'],
+                'name': kwargs['name']
             }
         }
         send_notification(data=data, **kwargs)
