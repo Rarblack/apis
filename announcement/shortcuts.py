@@ -1,30 +1,15 @@
-def send_notification(**kwargs):
+def push_notification(receivers=None, data=None):
+
+    if receivers is None:
+        receivers = []
+
     from fcm_django.models import FCMDevice
-    device_id = kwargs.get('device_id')
 
-    def to_single_device():
-        device = FCMDevice.objects.get(device_id=device_id, active=True)
-        if device:
+    devices = FCMDevice.objects.filter(user_id__in=receivers, active=True)
+
+    if devices:
+        for device in devices:
             try:
-                device.send_message(data=kwargs.get('data'))
+                device.send_message(data=data)
             except ValueError:
-                raise ValueError("Notification couldn't be sent to the device")
-
-    def to_all_devices():
-        devices = FCMDevice.objects.all()
-        if devices:
-            for device in devices:
-                device.send_message(data=kwargs.get('data'))
-
-    if device_id:
-        to_single_device()
-    else:
-        to_all_devices()
-
-
-def record_notification(**kwargs):
-    from notification.models import Notification
-    from django.utils import timezone
-    Notification.objects.create(data=kwargs.get('data'),
-                                created_by=kwargs.get('created_by'),
-                                created_datetime=timezone.now())
+                raise ValueError("Notification couldn't be sent to the device %s" % device.id)

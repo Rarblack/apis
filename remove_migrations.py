@@ -1,8 +1,8 @@
 import os
 import glob
 
-file_list = glob.glob("C:\\Users\\ABagiyev\\PycharmProjects\\apis\\**\\migrations\\*.py", recursive=True)
-file_exact_path = glob.glob("C:\\Users\\ABagiyev\\PycharmProjects\\apis\\db.sqlite3")
+file_list = glob.glob("C:\\Users\\Aydin Bagiyev\\PycharmProjects\\apis\\**\\migrations\\*.py", recursive=True)
+file_exact_path = glob.glob("C:\\Users\\Aydin Bagiyev\\PycharmProjects\\apis\\db.sqlite3")
 
 
 # deleting migrations

@@ -4,6 +4,7 @@ from user.models import CustomUser
 from django.shortcuts import redirect
 from django.utils import timezone
 
+
 @admin.register(Announcement)
 class AnnouncementAdmin(admin.ModelAdmin):
     list_display = ['id']
@@ -29,7 +30,6 @@ class AnnouncementAdmin(admin.ModelAdmin):
         super(AnnouncementAdmin, self).save_model(request, obj, form, change)
 
     def response_add(self, request, obj, post_url_continue=None):
-        print(obj.title)
         return redirect('/admin/announcement/announcement/%s/change/' % obj.pk)
 
 

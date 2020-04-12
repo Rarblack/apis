@@ -7,5 +7,5 @@ class AnnouncementSerializer(serializers.ModelSerializer):
     class Meta:
         model = Announcement
         fields = (
-            'title', 'message', 'created_by', 'created_datetime'
+            'receivers', 'title', 'message', 'created_by', 'created_datetime'
         )

@@ -1,5 +1,5 @@
-from django.db import models
 from django.conf import settings
+from django.db import models
 from user.models import CustomUser
 
 
@@ -49,3 +49,29 @@ class Announcement(models.Model):
 
     def __str__(self):
         return '%s' % self.title
+
+
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from notification.models import Notification
+from .shortcuts import push_notification
+
+
+@receiver(post_save, sender=Announcement)
+def create_notification(sender, instance=None, created=False, **kwargs):
+    if created:
+        data = {
+            'title': instance.title,
+            'message': instance.message,
+            'user': {
+                'id': instance.created_by.id,
+                'name': instance.created_by.email
+            }
+        }
+        notification = Notification.objects.create(data=data, created_by=instance.created_by)
+        receivers = instance.receivers.all()
+        notification.receivers.set(receivers)
+        push_notification(receivers)
+
+
+
