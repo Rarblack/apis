@@ -18,8 +18,8 @@ class UserAnnouncementsListAPIView(generics.ListAPIView):
 class AnnouncementCreateAPIView(generics.CreateAPIView):
     queryset = Announcement.objects.all()
     serializer_class = AnnouncementSerializer
-    # authentication_classes = (authentication.TokenAuthentication, )
-    # permission_classes = (permissions.IsAuthenticated,)
+    authentication_classes = (authentication.TokenAuthentication, )
+    permission_classes = (permissions.IsAuthenticated,)
 
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
