@@ -15,7 +15,12 @@ class CustomObtainAuthToken(ObtainAuthToken):
         user = serializer.validated_data['user']
         token, created = Token.objects.get_or_create(user=user)
 
-        return Response({'token': token.key, 'user_id': user.id})
+        return Response({
+            'token': token.key,
+            'user_id': user.id,
+            'user_name': user.get_full_name(),
+            'is_staff': user.is_staff
+        })
 
 
 class UsersListAPIView(generics.ListAPIView):
