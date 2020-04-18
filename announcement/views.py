@@ -12,7 +12,7 @@ class UserAnnouncementsListAPIView(generics.ListAPIView):
     permission_classes = (permissions.IsAuthenticated,)
 
     def get_queryset(self):
-        return Announcement.objects.filter(receivers__pk=self.kwargs['pk'])
+        return Announcement.objects.filter(receivers__pk=self.kwargs['pk']).order_by('-created_datetime')
 
 
 class AnnouncementCreateAPIView(generics.CreateAPIView):
