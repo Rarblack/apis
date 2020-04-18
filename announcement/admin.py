@@ -13,12 +13,12 @@ class AnnouncementAdmin(admin.ModelAdmin):
         excluded = super().get_exclude(request, obj) or []
 
         if not obj:
-            return excluded + ['receivers', 'type']
+            return excluded + ['receivers']
         return excluded
 
-    def formfield_for_manytomany(self, db_field, request, **kwargs):
-        kwargs['queryset'] = CustomUser.objects.exclude(pk=request.user.id)
-        return super(AnnouncementAdmin, self).formfield_for_manytomany(db_field, request, **kwargs)
+    # def formfield_for_manytomany(self, db_field, request, **kwargs):
+    #     kwargs['queryset'] = CustomUser.objects.exclude(pk=request.user.id)
+    #     return super(AnnouncementAdmin, self).formfield_for_manytomany(db_field, request, **kwargs)
 
     def save_model(self, request, obj, form, change):
         if change:

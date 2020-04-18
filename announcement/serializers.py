@@ -8,5 +8,14 @@ class AnnouncementSerializer(serializers.ModelSerializer):
         model = Announcement
         depth = 1
         fields = (
-            'receivers', 'title', 'message', 'created_by', 'created_datetime'
+            'title', 'message', 'created_by', 'created_datetime'
+        )
+
+
+class AnnouncementCreateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Announcement
+        fields = (
+            'receivers', 'title', 'message', 'created_by'
         )

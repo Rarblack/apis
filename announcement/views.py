@@ -1,6 +1,6 @@
 from rest_framework import generics
 from rest_framework import authentication, permissions
-from .serializers import AnnouncementSerializer
+from .serializers import AnnouncementSerializer, AnnouncementCreateSerializer
 from .models import Announcement
 from rest_framework import status
 from rest_framework.response import Response
@@ -17,7 +17,7 @@ class UserAnnouncementsListAPIView(generics.ListAPIView):
 
 class AnnouncementCreateAPIView(generics.CreateAPIView):
     queryset = Announcement.objects.all()
-    serializer_class = AnnouncementSerializer
+    serializer_class = AnnouncementCreateSerializer
     authentication_classes = (authentication.TokenAuthentication, )
     permission_classes = (permissions.IsAuthenticated,)
 
