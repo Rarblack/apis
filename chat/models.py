@@ -3,7 +3,7 @@ from django.db import models
 from user.models import CustomUser
 
 
-class Announcement(models.Model):
+class Message(models.Model):
 
     receivers = models.ManyToManyField(
         CustomUser,
@@ -57,7 +57,7 @@ from notification.models import Notification
 from apis.shortcuts import push_notification
 
 
-@receiver(post_save, sender=Announcement)
+@receiver(post_save, sender=Message)
 def create_notification(sender, instance=None, created=False, **kwargs):
     if created:
         data = {

@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     'department',
     'workplace',
     'announcement',
-    'notification'
+    'chat',
+    'notification',
 ]
 
 MIDDLEWARE = [
