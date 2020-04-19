@@ -20,8 +20,8 @@ class Message(models.Model):
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        related_name='updatedAnnouncements',
-        related_query_name='updatedAnnouncement',
+        related_name='updatedMessages',
+        related_query_name='updatedMessage',
         editable=False
     )
 
@@ -36,16 +36,16 @@ class Message(models.Model):
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        related_name='createdAnnouncements',
-        related_query_name='createdAnnouncement',
+        related_name='createdMessages',
+        related_query_name='createdMessage',
         editable=False
     )
 
     created_datetime = models.DateTimeField(auto_now=True, editable=False)
 
     class Meta:
-        verbose_name = 'Announcement'
-        verbose_name_plural = 'Announcements'
+        verbose_name = 'Message'
+        verbose_name_plural = 'Messages'
 
     def __str__(self):
         return '%s' % self.title
