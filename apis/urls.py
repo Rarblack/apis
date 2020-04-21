@@ -11,6 +11,7 @@ urlpatterns = [
     path('fcm/device/create', FCMDeviceAuthorizedViewSet.as_view({'post': 'create'}), name='create-device'),
     path('', include('user.urls')),
     path('', include('announcement.urls')),
+    path('', include('chat.urls')),
     path('', include('notification.urls'))
     # path('api/', include('user.urls')),
     # path('api/', include('announcement.urls')),
