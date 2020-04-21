@@ -1,4 +1,4 @@
-def push_notification(receivers, data=None):
+def push_notification(receivers, data):
 
     from fcm_django.models import FCMDevice
 

@@ -72,7 +72,7 @@ def create_notification_when_receivers_set(sender, instance, action, **kwargs):
         notification = Notification.objects.create(data=data, created_by=instance.created_by)
         receivers = instance.receivers.all()
         notification.receivers.set(receivers)
-        push_notification(receivers)
+        push_notification(receivers, data)
 
 
 #
