@@ -51,15 +51,16 @@ class Message(models.Model):
         return '%s' % self.title
 
 
-from django.db.models.signals import post_save
+# from django.db.models.signals import post_save
 from django.dispatch import receiver
 from notification.models import Notification
 from apis.shortcuts import push_notification
+from django.db.models.signals import m2m_changed
 
 
-@receiver(post_save, sender=Message)
-def create_notification(sender, instance=None, created=False, **kwargs):
-    if created:
+@receiver(m2m_changed, sender=Message.receivers.through)
+def create_notification_when_receivers_set(sender, instance, action, **kwargs):
+    if action == 'post_add':
         data = {
             'title': instance.title,
             'message': instance.message,
@@ -72,6 +73,23 @@ def create_notification(sender, instance=None, created=False, **kwargs):
         receivers = instance.receivers.all()
         notification.receivers.set(receivers)
         push_notification(receivers)
+
+
+# @receiver(post_save, sender=Message)
+# def create_notification(sender, instance=None, created=False, **kwargs):
+#     if created:
+#         data = {
+#             'title': instance.title,
+#             'message': instance.message,
+#             'user': {
+#                 'id': instance.created_by.id,
+#                 'name': instance.created_by.email
+#             }
+#         }
+#         notification = Notification.objects.create(data=data, created_by=instance.created_by)
+#         receivers = instance.receivers.all()
+#         notification.receivers.set(receivers)
+#         push_notification(receivers)
 
 
 
