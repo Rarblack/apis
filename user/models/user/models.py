@@ -13,18 +13,23 @@ class CustomUser(AbstractUser):
 
     username = None
 
-    email = models.EmailField(
-        _('email address'),
+    # email = models.EmailField(
+    #     _('email address'),
+    #     unique=True,
+    #     validators=[CustomEmailValidator],
+    #     help_text=_('Emails ending with socar-aqs.com are only accepted.'),
+    #     error_messages={
+    #         'unique': _("An user with that email already exists."),
+    #     },
+    # )
+
+    personal_number = models.IntegerField(
         unique=True,
-        validators=[CustomEmailValidator],
-        help_text=_('Emails ending with socar-aqs.com are only accepted.'),
-        error_messages={
-            'unique': _("An user with that email already exists."),
-        },
     )
 
-    USERNAME_FIELD = 'email'
+    # USERNAME_FIELD = 'email'
     # REQUIRED_FIELDS = ['department', 'workplace']
+    USERNAME_FIELD = 'personal_number'
     REQUIRED_FIELDS = []
 
     objects = CustomUserManager()
