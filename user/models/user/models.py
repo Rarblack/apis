@@ -13,15 +13,17 @@ class CustomUser(AbstractUser):
 
     username = None
 
-    # email = models.EmailField(
-    #     _('email address'),
-    #     unique=True,
-    #     validators=[CustomEmailValidator],
-    #     help_text=_('Emails ending with socar-aqs.com are only accepted.'),
-    #     error_messages={
-    #         'unique': _("An user with that email already exists."),
-    #     },
-    # )
+    email = models.EmailField(
+        _('email address'),
+        null=True,
+        blank=True,
+        unique=True,
+        validators=[CustomEmailValidator],
+        help_text=_('Emails ending with socar-aqs.com are only accepted.'),
+        error_messages={
+            'unique': _("An user with that email already exists."),
+        },
+    )
 
     personal_number = models.IntegerField(
         unique=True,
@@ -35,7 +37,7 @@ class CustomUser(AbstractUser):
     objects = CustomUserManager()
 
     def __str__(self):
-        return self.email
+        return "Personal number: {0}".format(str(self.personal_number))
 
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)

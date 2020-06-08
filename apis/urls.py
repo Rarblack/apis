@@ -13,9 +13,6 @@ urlpatterns = [
     path('', include('announcement.urls')),
     path('', include('chat.urls')),
     path('', include('notification.urls'))
-    # path('api/', include('user.urls')),
-    # path('api/', include('announcement.urls')),
-    # path('api/', include('notification.urls'))
 ]
 
 if settings.DEBUG:

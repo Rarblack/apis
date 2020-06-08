@@ -5,6 +5,7 @@ from django.dispatch import receiver
 from django.contrib.auth.models import User
 from department.models import Department
 from workplace.models import Workplace
+from occupation.models import Occupation
 
 
 class Profile(models.Model):
@@ -24,9 +25,11 @@ class Profile(models.Model):
 
     gender = models.IntegerField(
         choices=[
-            (0, 'Male'),
-            (1, 'Woman')
-        ]
+            (0, '-'),
+            (1, 'Male'),
+            (2, 'Woman')
+        ],
+        default=0
     )
 
     department = models.ForeignKey(
@@ -35,6 +38,14 @@ class Profile(models.Model):
         null=True,
         related_name='departments',
         related_query_name='department'
+    )
+
+    occupation = models.ForeignKey(
+        Occupation,
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name='occupations',
+        related_query_name='occupation'
     )
 
     workplace = models.ForeignKey(
@@ -58,32 +69,27 @@ class Profile(models.Model):
         null=True,
         blank=True,
         related_name='updatedProfiles',
-        related_query_name='updatedProfile',
-        editable=False
+        related_query_name='updatedProfile'
     )
 
     updated_datetime = models.DateTimeField(
         null=True,
         blank=True,
-        editable=False
-
     )
     created_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.SET_NULL,
         null=True,
-        related_name='createdProfiles',
-        related_query_name='createdProfile',
-        editable=False
+        related_name='created_profiles',
+        related_query_name='created_profile'
     )
 
     created_datetime = models.DateTimeField(
         auto_now=True,
-        editable=False
     )
 
     def __str__(self):
-        return self.user.username
+        return "Personal number: {0}".format(str(self.user.personal_number))
 
     def get_full_name(self):
         return '%s %s' % (self.user.first_name, self.user.last_name)
@@ -95,5 +101,5 @@ class Profile(models.Model):
 @receiver(post_save, sender=User)
 def create_or_update_user_profile(sender, instance, created, **kwargs):
     if created:
-        Profile.objects.create(user=instance)
+        Profile.objects.create(user=instance, created_by=instance)
     instance.profile.save()

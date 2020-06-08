@@ -42,11 +42,14 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'fcm_django',
+    'crispy_forms',
 
     # custom
+    'bases',
     'user',
     'department',
     'workplace',
+    'occupation',
     'announcement',
     'chat',
     'notification',
@@ -145,3 +148,5 @@ FCM_DJANGO_SETTINGS = {
         "ONE_DEVICE_PER_USER": False,
         "DELETE_INACTIVE_DEVICES": False,
 }
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

@@ -1,0 +1,119 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>
+
+        {% block title %}{% endblock %}
+
+    </title>
+
+    <link type="image/png" rel="shortcut icon" href="{% static 'bases/images/logos/socar-aqs/flame.png' %}">
+
+    <!--                                                          CSS                                                         -->
+
+    <!-- Font awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+
+    <!-- Bootstrap core css -->
+    <link rel="stylesheet" href="{% static 'bases/vendors/mdb/css/bootstrap.min.css' %}">
+
+    <!-- Material design bootstrap -->
+    <link rel="stylesheet" href="{% static 'bases/vendors/mdb/css/mdb.min.css' %}">
+
+    <!-- Data Tables -->
+    <link rel="stylesheet" type="text/css" href="{% static 'bases/vendors/datatables/datatables.min.css' %}">
+
+    <!-- Charts.js -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css">
+
+    <!-- Custom css -->
+    <link rel="stylesheet" href="{% static 'bases/css/custom.css' %}">
+
+    {% block css %}{% endblock %}
+
+    <!--                                                         END CSS                                                         -->
+
+</head>
+
+<body>
+
+<!-- Main Navigation -->
+
+<!-- Main Navigation -->
+
+<!-- Main layout -->
+<main class="container animated fadeIn slower">
+
+    {% if user.is_authenticated %}
+        <header>
+            <!--Navbar -->
+            <nav class="navbar navbar-expand-lg" style="box-shadow: none!important; background-color: transparent; padding: 0!important;">
+
+                <a class="navbar-brand" href="/">
+                    <img src="{% static 'bases/images/logos/socar-aqs/black-horizontal.png' %}" height="30" alt="socar-aqs logo">
+                </a>
+
+{#                <ul class="navbar-nav ml-auto">#}
+{#                    {% if user.is_staff %}#}
+{#                        <li class="nav-item">#}
+{#                            <a class="nav-link" href="{% url 'answer:template_dashboard' %}">dashboard</a>#}
+{#                        </li>#}
+{#                    {% endif %}#}
+{##}
+{#                    <li class="nav-item">#}
+{#                        <a class="nav-link" href="{% url 'logout' %}">sign out</a>#}
+{#                    </li>#}
+{#                </ul>#}
+            </nav>
+            <!--/.Navbar -->
+        </header>
+    {% endif %}
+
+{#    {% block login %}{% endblock %}#}
+
+    {% block main %}{% endblock %}
+
+</main>
+
+<!--                                                         SCRIPTS                                                         -->
+
+
+<!-- JQuery -->
+<script src="{% static 'bases/vendors/mdb/js/jquery-3.4.1.min.js' %}"></script>
+
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="{% static 'bases/vendors/mdb/js/popper.min.js' %}"></script>
+
+<!-- Bootstrap core -->
+<script type="text/javascript" src="{% static 'bases/vendors/mdb/js/bootstrap.js' %}"></script>
+
+<!-- MDB core -->
+<script type="text/javascript" src="{% static 'bases/vendors/mdb/js/mdb.min.js' %}"></script>
+
+<!-- Datatable -->
+<script type="text/javascript" src="{% static 'bases/vendors/datatables/datatables.min.js' %}"></script>
+
+<!-- Tooltips initialization -->
+<script src="{% static 'bases/js/inits/tooltips.js' %}"></script>
+
+<!-- Datatable initialization -->
+<script src="{% static 'bases/js/inits/datatables.js' %}"></script>
+
+<!-- Custom javascript-->
+{% block js %}{% endblock %}
+
+<!--                                                         END SCRIPTS                                                      -->
+
+</body>
+
+</html>
