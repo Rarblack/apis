@@ -7,5 +7,5 @@ urlpatterns = [
 ]
 
 urlpatterns += [
-    path('add-csv-users-to-database', add_csv_users_to_database, name='users_csv_to_database')
+    path('add-users-to-database', add_csv_users_to_database, name='users_csv_to_database')
     ]

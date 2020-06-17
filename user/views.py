@@ -37,33 +37,39 @@ from .models.profile.models import Profile
 from workplace.models import Workplace
 from occupation.models import Occupation
 from department.models import Department
-
+from django.http import HttpResponse
 
 @login_required
 def add_csv_users_to_database(request):
-    department, created = Department.objects.get_or_create(name='Default', code='D', created_by=request.user)
-    with open('Employee numbers list.csv', encoding='utf-8') as csvfile:
-        reader = csv.reader(csvfile, delimiter=',',)
-        for row in reader:
-            if not CustomUser.objects.filter(personal_number=int(row[0].replace('\ufeff', '')),):
-                user = CustomUser.objects.create_user(
-                    personal_number=int(row[0].replace('\ufeff', '')),
-                    password='User_' + row[0].replace('\ufeff', ''),
-                    first_name=row[1],
-                    last_name=row[2],
-                )
+    if request.user.is_superuser:
 
-                profile, created = Profile.objects.get_or_create(user=user,  created_by=request.user)
+        department, created = Department.objects.get_or_create(name='Default', code='D', created_by=request.user)
 
-                occupation, created = Occupation.objects.get_or_create(name=row[3])
-                workplace, created = Workplace.objects.get_or_create(name=row[4])
+        with open('employee_numbers_list.csv', encoding='utf-8') as csvfile:
+            reader = csv.reader(csvfile, delimiter=',',)
 
-                profile.occupation = occupation
-                profile.workplace = workplace
-                profile.department = department
-                profile.save()
+            for row in reader:
+                personal_num = int(row[0].strip('\ufeff'))
+                if not CustomUser.objects.filter(personal_number=personal_num):
+                    user = CustomUser.objects.create_user(
+                        personal_number=personal_num,
+                        password='User_%s' % personal_num,
+                        first_name=row[1],
+                        last_name=row[2],
+                    )
 
-    return render(request, 'csv_to_database.html')
+                    profile, created = Profile.objects.get_or_create(user=user,  created_by=request.user)
+
+                    occupation, created = Occupation.objects.get_or_create(name=row[3])
+                    workplace, created = Workplace.objects.get_or_create(name=row[4])
+
+                    profile.occupation = occupation
+                    profile.workplace = workplace
+                    profile.department = department
+                    profile.save()
+
+        return HttpResponse('Users created')
+    return HttpResponse('You are not superuser')
 
 
 
