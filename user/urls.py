@@ -2,8 +2,8 @@ from django.urls import path
 from .views import CustomObtainAuthToken, UsersListAPIView, add_csv_users_to_database
 
 urlpatterns = [
-    path('users/token-auth', CustomObtainAuthToken.as_view()),
-    path('users', UsersListAPIView.as_view()),
+    path('auth-token', CustomObtainAuthToken.as_view()),
+    path('', UsersListAPIView.as_view()),
 ]
 
 urlpatterns += [
