@@ -2,7 +2,7 @@ from django.urls import path
 from .views import CustomObtainAuthToken, UsersListAPIView, add_csv_users_to_database
 
 urlpatterns = [
-    path('auth-token', CustomObtainAuthToken.as_view()),
+    path('token-auth', CustomObtainAuthToken.as_view()),
     path('', UsersListAPIView.as_view()),
 ]
 
