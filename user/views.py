@@ -19,7 +19,7 @@ class CustomObtainAuthToken(ObtainAuthToken):
         return Response({
             'token': token.key,
             'user_id': user.id,
-            'user_name': user.get_full_name(),
+            'user_name': user.profile.get_full_name(),
             'is_staff': user.is_staff
         })
 
