@@ -7,7 +7,6 @@ from .models import CustomUser
 from .serializers import UserSerializer
 
 
-
 class CustomObtainAuthToken(ObtainAuthToken):
     def post(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data,
