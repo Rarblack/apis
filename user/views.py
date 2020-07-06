@@ -45,22 +45,27 @@ def add_csv_users_to_database(request):
         department, created = Department.objects.get_or_create(name='Default', code='D', created_by=request.user)
 
         with open('employee_numbers_list.csv', encoding='utf-8') as csvfile:
+
             reader = csv.reader(csvfile, delimiter=',',)
 
             for row in reader:
-                personal_num = int(row[0].strip('\ufeff'))
-                if not CustomUser.objects.filter(personal_number=personal_num):
+
+                personal_num = row[0].strip('\ufeff')
+
+                if not CustomUser.objects.filter(personal_number=int(personal_num)):
+
                     user = CustomUser.objects.create_user(
-                        personal_number=personal_num,
-                        password='User_%s' % personal_num,
+                        personal_number=int(personal_num),
+                        password='socaraqs' + personal_num,
                         first_name=row[1],
                         last_name=row[2],
                     )
 
-                    profile, created = Profile.objects.get_or_create(user=user,  created_by=request.user)
-
                     occupation, created = Occupation.objects.get_or_create(name=row[3])
+
                     workplace, created = Workplace.objects.get_or_create(name=row[4])
+
+                    profile, created = Profile.objects.get_or_create(user=user,  created_by=request.user)
 
                     profile.occupation = occupation
                     profile.workplace = workplace
